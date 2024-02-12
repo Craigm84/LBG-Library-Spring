@@ -58,4 +58,32 @@ public class SeleniumTest {
 				.findElement(By.cssSelector("#root > main > div > section:nth-child(1) > div:nth-child(3) > h3"));
 		Assertions.assertEquals("Barry", created.getText());
 	}
+
+	@Test
+	@Order(3)
+	void testCreateItem() {
+		this.driver.get("http://localhost:" + this.port);
+		String itemType = "Book";
+		WebElement itemT = this.driver.findElement(By.cssSelector(
+				"#root > main > div > section:nth-child(2) > div:nth-child(2) > form > div > input:nth-child(1)"));
+		itemT.sendKeys(itemType);
+
+		String itemName = "LOTR";
+		WebElement itemN = this.driver.findElement(By.cssSelector(
+				"#root > main > div > section:nth-child(2) > div:nth-child(2) > form > div > input:nth-child(2)"));
+		itemN.sendKeys(itemName);
+
+		WebElement register = this.driver.findElement(
+				By.cssSelector("#root > main > div > section:nth-child(2) > div:nth-child(2) > form > div > button"));
+		register.click();
+	}
+
+	@Test
+	@Order(4)
+	void testGetItem() {
+		this.driver.get("http://localhost:" + this.port);
+		WebElement created = this.driver
+				.findElement(By.cssSelector("#root > main > div > section:nth-child(2) > div:nth-child(3) > h3"));
+		Assertions.assertEquals("LOTR (Book)", created.getText());
+	}
 }
